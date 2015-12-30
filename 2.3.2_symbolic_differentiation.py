@@ -102,15 +102,11 @@ class ExpRenderer(object):
     def render_Prod(self, exp):
         return self.render_bin_op(exp)
 
-def make_deriv_printer():
-    e2s = ExpRenderer()
-    def show_deriv(exp, var):
-        print e2s(deriv(exp, var))
-    return show_deriv
-
 
 
 if __name__ == '__main__':
+
+    e2s = ExpRenderer()
 
     # an example: derivative of "a*x*x + b*x + c"
 
@@ -118,9 +114,14 @@ if __name__ == '__main__':
             Sum(Prod('b', 'x'),
                 'c'))
 
-    show_deriv = make_deriv_printer()
+    dd = deriv(exp, 'x')
+    print e2s(dd)           # prints "a*(x + x) + b"
 
-    show_deriv(exp, 'x')    # prints "((a * (x + x)) + b)"
-    #show_deriv(exp, 'a')   # FAILS (infinite recursion, why??)
-    show_deriv(exp, 'b')    # prints "x"
-    show_deriv(exp, 'c')    # prints "1"
+    #dd = deriv(exp, 'a')
+    #print e2s(dd)           # FAILS!, infinite recursion, why??
+
+    dd = deriv(exp, 'b')
+    print e2s(dd)           # prints "x"
+
+    dd = deriv(exp, 'c')
+    print e2s(dd)           # prints "1"
