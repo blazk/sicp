@@ -102,3 +102,21 @@
 
 (print "2.23 for-each")
 (for-each (list 1 2 3 4 5 6 7 9) print)  ;prints each element
+
+
+
+
+;; Section 2.2.2: Hierarchical Structures
+
+
+
+;; Excercise 2.24: (list 1 (list 2 (list 3 4))))
+;; - what interpreter would print
+;; - draw box-and-pointer representation
+;; - draw corresponding tree
+;;
+https://drive.google.com/open?id=0B2HTFyK_1qLJNHNhbndYWENYOFVhR19Ga0JVUVo5cXZNSk5J
+
+
+
+
