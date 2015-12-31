@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-"""
-The 'sqrt' example, implemented in python
-"""
+
+# 1.1.7: Square Root by Newton's Method
 
 def average(a, b):
     return (a + b) / 2.0
@@ -21,4 +20,5 @@ def sqrt(x):
         return iter(improve(guess))
     return iter(1.0)
 
+print "1.1.7 sqrt"
 print sqrt(9.0)
