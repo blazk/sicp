@@ -115,8 +115,39 @@
 ;; - draw box-and-pointer representation
 ;; - draw corresponding tree
 ;;
-https://drive.google.com/open?id=0B2HTFyK_1qLJNHNhbndYWENYOFVhR19Ga0JVUVo5cXZNSk5J
+;; https://drive.google.com/open?id=0B2HTFyK_1qLJRmpIb0NGYXlFeDdVWEMxX20xLW5lOXhOUUFN
 
 
 
+;; Excercise 2.25: Give combinations of cars and cdrs that
+;; will pick 7 from each of the following lists
+;; (1 3 (5 7) 9)
+;; ((7))
+;; (1 (2 (3 (4 (5 (6 7))))))
 
+(print "2.25 cars and cdrs")
+
+(print (car
+         (cdr
+           (car
+             (cdr
+               (cdr
+                 '(1 3 (5 7) 9)))))))
+
+(print (car
+         (car
+           '((7)))))
+
+(print (car
+         (cdr
+           (car
+             (cdr
+               (car
+                 (cdr
+                   (car
+                     (cdr
+                       (car
+                         (cdr
+                           (car
+                             (cdr
+                               '(1 (2 (3 (4 (5 (6 7)))))))))))))))))))
