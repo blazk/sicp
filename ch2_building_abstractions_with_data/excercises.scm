@@ -179,16 +179,20 @@
 
 
 
+
 ;; Excercise 2.28: Write a procedure fringe that takes as argument
 ;; a tree and returns a list whose elements are all the leaves
 ;; of the tree arranged in left-to-right order.
+
 
 (define (fringe x)
   (cond ((null? x) nil)
         ((pair? (car x)) (append (fringe (car x)) (fringe (cdr x))))
         (else (cons (car x) (fringe (cdr x))))))
 
+
 (print "2.28 fringe")
 (let ((x (list (list 1 2) (list 3 4))))
   (print (fringe x))                       ;prints (1 2 3 4)
   (print (fringe (list x x))))             ;prints (1 2 3 4 1 2 3 4)
+
