@@ -151,3 +151,25 @@
                            (car
                              (cdr
                                '(1 (2 (3 (4 (5 (6 7)))))))))))))))))))
+
+
+
+
+;; Excercise 2.27: Modify reverse procecure of ex.2.18 to produce
+;; deep-reverse procedure that takes a list as argument and returns
+;; as its value the list with its elements reversed and with all
+;; sublists deep-reversed as well. e.g. ((1 2) (3 4)) -> ((4 3) (2 1))
+
+(define (deep-reverse x)
+  (define (rev-if-list x)
+    (if (pair? x)
+      (iter x nil)
+      x))
+  (define (iter src rev)
+    (if (null? src)
+      rev
+      (iter (cdr src) (cons (rev-if-list (car src)) rev))))
+  (iter x nil))
+
+(print "2.27 deep-reverse")
+(print (deep-reverse '((1 2) 0 (3 (5 6) 4))))  ;prints ((4 (6 5) 3) 0 (2 1))
