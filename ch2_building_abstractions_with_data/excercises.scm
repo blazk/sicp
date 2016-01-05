@@ -193,6 +193,94 @@
 
 (print "2.28 fringe")
 (let ((x (list (list 1 2) (list 3 4))))
-  (print (fringe x))                       ;prints (1 2 3 4)
-  (print (fringe (list x x))))             ;prints (1 2 3 4 1 2 3 4)
+  (print (fringe x))                            ;prints (1 2 3 4)
+  (print (fringe (list x x))))                  ;prints (1 2 3 4 1 2 3 4)
 
+
+
+
+
+;; Excercise 2.29: mobile
+
+(define (excercise-2-29)
+
+;; A binary mobile consists of two branches,
+;; a left branch and a right branch. Each branch is a rod of
+;; a certain length, from which hangs either a weight or an-
+;; other binary mobile. We can represent a binary mobile us-
+;; ing compound data by constructing it from two branches
+;; (for example, using list):
+
+   (define (make-mobile left right)
+     (list left right))
+
+;; A branch is constructed from a length (which must be a number)
+;; together with a structure, which may be either a number
+;; (representing a simple weight) or another mobile:
+
+   (define (make-branch length structure)
+     (list length structure))
+
+;; a) write the corresponding selectors left-branch and right-branch
+;; which return the branches of a mobile, and branch-length
+;; and branch-structure, which return the components of a branch.
+
+   (define (left-branch mobile)
+     (car mobile))
+   (define (right-branch mobile)
+     (cadr mobile))
+   (define (branch-length branch)
+     (car branch))
+   (define (branch-structure branch)
+     (cadr branch))
+
+;; b) Using your selectors, define a procedure total-weight that
+;; returns total weight of a mobile
+
+   (define (total-weight structure)
+     (if (number? structure)
+       structure
+       (+ (total-weight (branch-structure (left-branch structure)))
+          (total-weight (branch-structure (right-branch structure))))))
+
+;; c) Design a predicate that tests whether a mobile is balanced.
+;; A mobile is balanced when the torque of the top-left arm
+;; is equal to the torque of the top-right arm and any
+;; sub-mobiles are also balanced.
+
+   (define (balanced? structure)
+     (define (torque branch)
+       (* (branch-length branch) (total-weight (branch-structure branch))))
+     (if (number? structure)
+       #t
+       (let ((left (left-branch structure)) (right (right-branch structure)))
+         (and (eq? (torque left) (torque right))
+              (balanced? (branch-structure left))
+              (balanced? (branch-structure right))))))
+
+;; d) Suppose we change the representation of mobiles
+;; so that the constructors are
+;;   (define (make-mobile left right) (cons left right))
+;;   (define (make-branch length structure) (cons length structure))
+;; How much do you need to change your program to convert to the
+;; new representation?
+;; A: Would need to change only constructors and selectors.
+
+
+;; Testing
+
+  ; mobiles
+  (define m1 (make-mobile (make-branch 1 1) (make-branch 1 2)))
+  (define m2 (make-mobile (make-branch 2 m1) (make-branch 4 1)))
+  (define m3 (make-mobile (make-branch 1 m1) (make-branch 1 m2)))
+  ; balanced mobiles
+  (define bm1 (make-mobile (make-branch 1 2) (make-branch 2 1)))
+  (define bm2 (make-mobile (make-branch 3 1) (make-branch 1 bm1)))
+
+  (print "2.29 mobile")
+  (print (total-weight m3))              ;prints 7
+  (print (balanced? bm1))                ;prints #t
+  (print (balanced? bm2))                ;prints #t
+  (print (balanced? m3))                 ;prints #f
+)
+(excercise-2-29)
