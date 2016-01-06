@@ -286,9 +286,11 @@
 
 
 
+
 (define (excercise-2-30)
-  ;; Excercise 2.30: define two versions of square-tree,
-  ;; one without map and the other using map and recursion.
+
+;; Excercise 2.30: define two versions of square-tree,
+;; one without map and the other using map and recursion.
 
   (define (square-tree-1 x)
     (cond ((null? x) nil)
@@ -302,14 +304,43 @@
         (* sub-tree sub-tree)))
       tree))
 
+;; test
+
   (define l (list 1 (list 2 (list 3 4) 5 (list 6 7))))
   (print "2.30 square-tree")
   (print (square-tree-1 l))
   (print (square-tree-2 l))
 )
-
 (excercise-2-30)
 
 
 
-;; Excercise 2.31:
+
+(define (excercise-2-31)
+
+;; Excercise 2.31: Abstract your answer to 2.30 to produce a procedure
+;; tree-map with a property that square-tree could be defined as
+;; (define (square-tree tree) (tree-map square tree))
+
+  (define (tree-map-1 proc tree)
+    (cond ((null? tree) nil)
+          ((not (pair? tree)) (proc tree))
+          (else (cons (tree-map-1 proc (car tree))
+                      (tree-map-1 proc (cdr tree))))))
+
+  (define (tree-map-2 proc tree)
+    (map (lambda (sub-tree)
+      (if (pair? sub-tree)
+        (tree-map-2 proc sub-tree)
+        (proc sub-tree)))
+      tree))
+
+;; test
+
+  (define l (list 1 (list 2 (list 3 4) 5 (list 6 7))))
+  (define (square x) (* x x))
+  (print "2.31 tree-map")
+  (print (tree-map-1 square l))
+  (print (tree-map-2 square l))
+)
+(excercise-2-31)
