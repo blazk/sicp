@@ -374,18 +374,21 @@
 
 
 
-(define (excercise-2-33)
+
 
 ;; Exercise 2.33: Fill in the missing expressions to complete
 ;; the following definitions of some basic list-manipulation
-;; operations as accumulations:
+;; operations as accumulations.
 
 ;; first, lets define accumulate:
 
-  (define (accumulate op initial sequence)
-    (if (null? sequence)
-      initial
-      (op (car sequence) (accumulate op initial (cdr sequence)))))
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+    initial
+    (op (car sequence) (accumulate op initial (cdr sequence)))))
+
+
+(define (excercise-2-33)
 
 ;; map as accumulation:
 
@@ -404,8 +407,31 @@
 
 ;; test
 
+  (print "2.33 operations as accumulation")
   (print (map (lambda (x) (* x x)) (list 1 2 3)))
   (print (append (list 1 2) (list 3 4)))
   (print (length (list 0 0 0 0 0)))
 )
 (excercise-2-33)
+
+
+
+
+
+
+(define (excercise-2-34)
+
+;; evaluate polynomial using Horner's rule
+
+  (define (horner-eval x coefficients)
+    (accumulate (lambda (coef sum)
+                        (+ coef (* sum x)))
+                0
+                coefficients))
+
+  (define c (list 1 2 3))
+  (print "2.34 horner-eval")
+  (print (horner-eval 1 c))
+)
+(excercise-2-34)
+
