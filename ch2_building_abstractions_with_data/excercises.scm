@@ -266,7 +266,6 @@
 ;; new representation?
 ;; A: Would need to change only constructors and selectors.
 
-
 ;; Testing
 
   ; mobiles
@@ -284,3 +283,33 @@
   (print (balanced? m3))                 ;prints #f
 )
 (excercise-2-29)
+
+
+
+(define (excercise-2-30)
+  ;; Excercise 2.30: define two versions of square-tree,
+  ;; one without map and the other using map and recursion.
+
+  (define (square-tree-1 x)
+    (cond ((null? x) nil)
+          ((not (pair? x)) (* x x))
+          (else (cons (square-tree-1 (car x)) (square-tree-1 (cdr x))))))
+
+  (define (square-tree-2 tree)
+    (map (lambda (sub-tree)
+      (if (pair? sub-tree)
+        (square-tree-2 sub-tree)
+        (* sub-tree sub-tree)))
+      tree))
+
+  (define l (list 1 (list 2 (list 3 4) 5 (list 6 7))))
+  (print "2.30 square-tree")
+  (print (square-tree-1 l))
+  (print (square-tree-2 l))
+)
+
+(excercise-2-30)
+
+
+
+;; Excercise 2.31:
