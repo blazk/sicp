@@ -537,3 +537,38 @@
   (print (matrix-*-matrix m1 m2))
 )
 (excercise-2-37)
+
+
+
+
+
+
+(define (excercise-2-39)
+
+;; Define reverse in terms of
+;; fold-right and fold-left.
+
+  (define (fold-right op initial sequence)
+    (accumulate op initial sequence))
+
+  (define (fold-left op initial sequence)
+    (define (iter result rest)
+      (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+    (iter initial sequence))
+
+  (define (reverse1 sequence)
+    (fold-right (lambda (x y) (append y (list x))) nil sequence))
+
+  (define (reverse2 sequence)
+    (fold-left (lambda (x y) (cons y x)) nil sequence))
+
+  ;; test
+
+  (print "2.39 reverse")
+  (print (reverse1 '(1 2 3 4)))
+  (print (reverse2 '(1 2 3 4)))
+)
+(excercise-2-39)
