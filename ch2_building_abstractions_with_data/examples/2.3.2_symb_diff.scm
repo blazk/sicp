@@ -90,3 +90,6 @@
 
 (display (deriv foo 'b))    ;prints x
 (newline)
+
+(display (deriv foo 'c))    ;prints 1
+(newline)

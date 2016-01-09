@@ -50,12 +50,12 @@ class Sum(BinOp):
     rank = 0
     def __new__(cls, left, right):
         # simplification applied at construction time
-        if is_num(left) and is_num(right):
-            return left + right
         if left == 0:
             return right
         if right == 0:
             return left
+        if is_num(left) and is_num(right):
+            return left + right
         return object.__new__(cls, left, right)
 
 class Prod(BinOp):
@@ -63,14 +63,14 @@ class Prod(BinOp):
     rank = 1
     def __new__(cls, left, right):
         # simplification applied at construction time
+        if is_num(left) and is_num(right):
+            return left * right
         if left == 0 or right == 0:
             return 0
         if right == 1:
             return left
         if left == 1:
             return right
-        if is_num(left) and is_num(right):
-            return left * right
         return object.__new__(cls, left, right)
 
 

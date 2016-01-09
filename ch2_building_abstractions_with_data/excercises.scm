@@ -462,8 +462,6 @@
 
 
 
-(define (excercise-2-36)
-
 ;; Exercise 2.36: The procedure accumulate-n is similar to
 ;; accumulate except that it takes as its third argument a
 ;; sequence of sequences, which are all assumed to have the
@@ -474,18 +472,68 @@
 ;; is a sequence containing four sequences, ((1 2 3) (4 5 6)
 ;; (7 8 9) (10 11 12)), then the value of (accumulate-n +
 ;; 0 s) should be the sequence (22 26 30). Fill in the missing
-;; expressions in the following definition of accumulate-n:
+;; expressions in the following definition of accumulate-n.
 
-  (define (accumulate-n op init seqs)
-    (if (null? (car seqs))
-      nil
-      (cons (accumulate op init (map car seqs))
-            (accumulate-n op init (map cdr seqs)))))
 
-;; test
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+    nil
+    (cons (accumulate op init (map car seqs))
+          (accumulate-n op init (map cdr seqs)))))
+
+
+(define (excercise-2-36)
 
   (define x '((1 2 3) (4 5 6) (7 8 9) (10 11 12)))
   (print "2.36 accumulate-n")
   (print (accumulate-n + 0 x))            ;prints (22 26 30)
 )
 (excercise-2-36)
+
+
+
+
+
+
+(define (excercise-2-37)
+
+;; suppose we represent vectors v = (v_i) as sequence of
+;; numbers, and matrices m = (m_ij) as sequences of vectors
+;; (the rows of vectors). Define vector and matrix operations.
+
+;; dot-product
+
+  (define (dot-product v w)
+    (accumulate + 0 (map * v w)))
+
+;; matrix-*-vector
+
+  (define (matrix-*-vector m v)
+    (map (lambda (x) (dot-product x v)) m))
+
+;; transpose
+
+  (define (transpose m)
+    (accumulate-n cons nil m))
+
+;; matrix-*-matrix
+
+  (define (matrix-*-matrix m n)
+    (let ((cols (transpose n)))
+      (map (lambda (x) (matrix-*-vector cols x)) m)))
+
+;; test
+
+  (define m1 '((1 2 3) (4 5 6)))
+  (define m2 '((1 2) (3 4) (5 6)))
+  (define v1 '(1 2))
+  (define v2 '(1 2 3))
+  (print "2.37 matrix operations")
+  (print (dot-product v1 v1))
+  (print (matrix-*-vector m1 v2))
+  (print (matrix-*-vector m2 v1))
+  (print (transpose m1))
+  (print (transpose m2))
+  (print (matrix-*-matrix m1 m2))
+)
+(excercise-2-37)
