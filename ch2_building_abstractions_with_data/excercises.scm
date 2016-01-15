@@ -565,10 +565,23 @@
   (define (reverse2 sequence)
     (fold-left (lambda (x y) (cons y x)) nil sequence))
 
-  ;; test
+;; test
 
   (print "2.39 reverse")
   (print (reverse1 '(1 2 3 4)))
   (print (reverse2 '(1 2 3 4)))
 )
 (excercise-2-39)
+
+
+
+
+
+;(define (excercise-2-40)
+
+;; define a procedure unique-pairs that, given an
+;; integer n, generates the sequence of pairs (i, j)
+;; with 1 <= j < i <= n. Use unique pairs to simplify
+;; the definition of prime-sum-pairs given above.
+
+;)
